@@ -12,7 +12,6 @@ import com.seb.model.Types;
 public class TypesHibernateDAO implements TypesDAO {
 
 	
-	@SuppressWarnings({ "deprecation", "unchecked" })
 	public List<Types> getAllTypes() {
 		Session session = HibernateUtil.createSession();
 		
