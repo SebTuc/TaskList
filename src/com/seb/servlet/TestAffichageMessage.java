@@ -32,8 +32,15 @@ public class TestAffichageMessage extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		List<Types> allTypes = typesService.getAllType();
+		/*System.out.println("////////////////////////////////////////////////////////////////////////////////////////////////////");
+		for(Types type : allTypes) {
+			
+			System.out.println(type.getNom());
+			
+		}
+		System.out.println("////////////////////////////////////////////////////////////////////////////////////////////////////");*/
 		request.setAttribute("allTypes", allTypes);
 		
 		this.getServletContext().getRequestDispatcher("/ressource/jsp/Test.jsp").forward(request, response);
