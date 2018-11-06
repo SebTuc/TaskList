@@ -17,8 +17,7 @@ import com.seb.service.TypesService;
  */
 @WebServlet("/TestAffichageMessage")
 public class TestAffichageMessage extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-    private static TypesService typesService;   
+	private static final long serialVersionUID = 1L;   
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,6 +32,7 @@ public class TestAffichageMessage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		TypesService typesService = new TypesService();
 		List<Types> allTypes = typesService.getAllType();
 		/*System.out.println("////////////////////////////////////////////////////////////////////////////////////////////////////");
 		for(Types type : allTypes) {

@@ -21,16 +21,6 @@ public class Types {
 	private String nom;
 	
 	
-	public Types() {
-		
-	}
-
-	public Types(String nom) {
-		this.nom = nom;
-	}
-
-	
-	
 	public int getId_type() {
 		return id_type;
 	}
