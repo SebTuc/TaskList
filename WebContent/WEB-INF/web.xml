@@ -7,6 +7,12 @@
       <res-type>javax.sql.DataSource</res-type>
   </resource-ref>
   
+  <servlet>
+		<servlet-name>initServlet</servlet-name>
+		<servlet-class>com.seb.servlet.InitServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+  
   <jsp-config>
     <jsp-property-group>
       <url-pattern>*.jsp</url-pattern>

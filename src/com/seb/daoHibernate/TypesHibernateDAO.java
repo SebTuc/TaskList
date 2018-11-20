@@ -2,7 +2,10 @@ package com.seb.daoHibernate;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
 
 import com.seb.dao.TypesDAO;
@@ -13,11 +16,21 @@ public class TypesHibernateDAO implements TypesDAO {
 
 	
 	public List<Types> getAllTypes() {
-		Session session = HibernateUtil.createSession();
 		
-		Criteria crit = session.createCriteria(Types.class);
-		List<Types> types = crit.list();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		
+		CriteriaQuery<Types> crit = builder.createQuery(Types.class);
+		
+		Root<Types> TypesRoot = crit.from(Types.class);
+		
+		crit.select(TypesRoot);
+		
+		List<Types> types = session.createQuery(crit).getResultList();
+		
 		session.close();
+		
 		if(types.isEmpty()) {
 			
 			return null;
