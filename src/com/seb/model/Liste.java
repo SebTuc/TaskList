@@ -1,17 +1,16 @@
 package com.seb.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table( name = "Liste")
+@Table(name = "Liste")
 public class Liste {
 	
 	@Id
@@ -19,22 +18,12 @@ public class Liste {
 	@GenericGenerator(name="increment", strategy = "increment")
 	private int id_liste;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
+	@JoinColumn(name="id_theme")
 	private Theme id_theme;
-	
-	@Column(name = "message",length=200)
 	private String message;
 
-	public Liste() {
-		
-	}
 	
-	
-	public Liste(Theme id_theme, String message) {
-		this.id_theme = id_theme;
-		this.message = message;
-	}
-
 	/*GETTER SETTER*/
 	public int getId_liste() {
 		return id_liste;

@@ -7,7 +7,8 @@
 <title>Test Hibernate</title>
 </head>
 <body>
-
+<div>Test hibernate :</div>
+<br>
 <c:forEach var="List" items="${ allTypes }"> 
      ${fn:escapeXml(List.nom)}
 </c:forEach>

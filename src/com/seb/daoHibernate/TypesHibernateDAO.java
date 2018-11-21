@@ -16,10 +16,12 @@ public class TypesHibernateDAO implements TypesDAO {
 
 	
 	public List<Types> getAllTypes() {
-		
+		//On recupere la session et le criteria builder génerer au moment de l'init
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+		CriteriaBuilder builder = HibernateUtil.getCriteriaBuilder();
 		
-		CriteriaBuilder builder = session.getCriteriaBuilder();
+		session.beginTransaction();
 		
 		CriteriaQuery<Types> crit = builder.createQuery(Types.class);
 		
@@ -28,8 +30,6 @@ public class TypesHibernateDAO implements TypesDAO {
 		crit.select(TypesRoot);
 		
 		List<Types> types = session.createQuery(crit).getResultList();
-		
-		session.close();
 		
 		if(types.isEmpty()) {
 			
