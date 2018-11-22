@@ -1,36 +1,38 @@
 package com.seb.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity
-@Table( name = "Types")
+@Table(name = "types")
 public class Types {
 	
-		@Id
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="increment", strategy = "increment")
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_type")
 	private int id_type;
-	
-	@Column(name="nom",length=25)
 	private String nom;
 	
+	@OneToMany(mappedBy = "type", cascade = CascadeType.PERSIST, orphanRemoval = true)
+	private Set<Theme> themes = new HashSet<Theme>(0);
 	
-	public Types() {
-		
+	public Set<Theme> getThemes() {
+		return themes;
 	}
 
-	public Types(String nom) {
-		this.nom = nom;
+	public void setThemes(Set<Theme> themes) {
+		this.themes = themes;
 	}
 
-	
-	
 	public int getId_type() {
 		return id_type;
 	}

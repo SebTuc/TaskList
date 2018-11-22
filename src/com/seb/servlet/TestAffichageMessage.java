@@ -4,46 +4,46 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.seb.model.Types;
+import com.seb.service.ThemeService;
 import com.seb.service.TypesService;
 
-/**
- * Servlet implementation class TestAffichageMessage
- */
-@WebServlet("/TestAffichageMessage")
+
 public class TestAffichageMessage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private static TypesService typesService;   
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public TestAffichageMessage() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		TypesService typesService = new TypesService();
 		List<Types> allTypes = typesService.getAllType();
-		request.setAttribute("allTypes", allTypes);
+
+		request.setAttribute("allTypes", allTypes);	
 		
 		this.getServletContext().getRequestDispatcher("/ressource/jsp/Test.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String idTheme = request.getParameter("deleteTheme");
+		String idList = request.getParameter("deleteList");
+		System.out.println(idList);
+		System.out.println(idTheme);
+		ThemeService themeService = new ThemeService();
+		
+		
+		if(idTheme!=null) {
+			
+			themeService.deleteThemeById(idTheme);
+			
+		}
+		
 		doGet(request, response);
 	}
 

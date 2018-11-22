@@ -1,29 +1,53 @@
 package com.seb.hibernate;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtil {
 
 	private static SessionFactory sessionFactory;
-	private static ServiceRegistry serviceRegistry;
-	private static Session serviceSession;
+	private static CriteriaBuilder builder;
+	private static EntityManager entityManager;
+	private static Session session;
 	
-	public static Session createSession() {
+	static {
+		try {
+			//Création de la session Hibernate et du criteriatBuilder a l'init (InitServlet)
+			sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			entityManager = session.getEntityManagerFactory().createEntityManager();
+			builder = sessionFactory.getCriteriaBuilder();			
 		
-		Configuration conf = new Configuration();
-		conf.configure("hibernate.cfg.xml");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public static SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+	
+	public static EntityManager getEntityManager() {
+		return entityManager;
+	}
+	
+	public static Session getSession() {
+		return session;
+	}
+
+	public static CriteriaBuilder getCriteriaBuilder() {
+		return builder;
+	}
+	
+	public static void init() {
 		
-		serviceRegistry = new StandardServiceRegistryBuilder().applySettings(conf.getProperties()).build();
-		
-		sessionFactory = conf.buildSessionFactory(serviceRegistry);
-		
-		serviceSession = sessionFactory.openSession();
-		
-		return serviceSession;
+		System.out.println("Initialization hibernate utils");
 	}
 	
 }
