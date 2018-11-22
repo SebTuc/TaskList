@@ -31,7 +31,7 @@
   
   <!-- error default page -->
   <error-page>
-  	<location>/ressource/jsp/Test.jsp</location>
+  	<location>/ressource/jsp/Error.jsp</location>
   </error-page>
   
   <!-- Page d'acceuil ? -->  

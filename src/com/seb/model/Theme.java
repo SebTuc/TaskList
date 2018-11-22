@@ -5,33 +5,43 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity
-@Table(name = "Theme" )
+@Table(name = "theme" )
 public class Theme {
 
 	@Id
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="increment", strategy = "increment")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_theme")
 	private int id_theme;
 	private String nom;
 	
 	@ManyToOne()
-	@JoinColumn(name="id_types")
-	private Types id_type;
+	@JoinColumn(name="id_type")
+	private Types type;
 	
-	@OneToMany(mappedBy = "Theme", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	
+
+	@OneToMany(mappedBy = "theme", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	private Set<Liste> listes = new HashSet<Liste>(0);
 	
+	public Set<Liste> getListes() {
+		return listes;
+	}
+
+	public void setListes(Set<Liste> listes) {
+		this.listes = listes;
+	}
+
 	public int getId_theme() {
 		return id_theme;
 	}
@@ -49,15 +59,15 @@ public class Theme {
 		this.nom = nom;
 	}
 	
+	public Types getType() {
+		return type;
+	}
+
+	public void setType(Types type) {
+		this.type = type;
+	}
 	
 
-	public Types getId_type() {
-		return id_type;
-	}
-
-	public void setId_type(Types id_type) {
-		this.id_type = id_type;
-	}
 	
 	
 }

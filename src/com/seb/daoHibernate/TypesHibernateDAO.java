@@ -17,11 +17,11 @@ public class TypesHibernateDAO implements TypesDAO {
 	
 	public List<Types> getAllTypes() {
 		//On recupere la session et le criteria builder génerer au moment de l'init
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSession();
 
 		CriteriaBuilder builder = HibernateUtil.getCriteriaBuilder();
 		
-		session.beginTransaction();
+		session.getTransaction();
 		
 		CriteriaQuery<Types> crit = builder.createQuery(Types.class);
 		

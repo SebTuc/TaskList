@@ -1,5 +1,9 @@
 package com.seb.dao;
 
-public interface ThemeDAO {
+import com.seb.model.Theme;
 
+public interface ThemeDAO {
+	
+	public void deleteTheme(Theme theme);
+	public Theme getThemeById(int ThemeId);
 }

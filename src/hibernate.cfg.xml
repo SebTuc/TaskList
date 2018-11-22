@@ -29,9 +29,9 @@
         <property name="show_sql">true</property>
 
 
-        <!-- <mapping package="com.seb.model"/> 
+        <!-- <mapping package="com.seb.model"/> -->
         <mapping class="com.seb.model.Theme"/>
-        <mapping class="com.seb.model.Liste"/>-->
+        <mapping class="com.seb.model.Liste"/>
         <mapping class="com.seb.model.Types"/>
 
     </session-factory>
