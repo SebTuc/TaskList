@@ -1,38 +1,47 @@
 package com.seb.model;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity
-@Table( name = "Theme" )
+@Table(name = "theme" )
 public class Theme {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_theme")
 	private int id_theme;
-	
 	private String nom;
 	
-	private Types id_type;
+	@ManyToOne()
+	@JoinColumn(name="id_type")
+	private Types type;
 	
-	public Theme() {
-		
-	}
 	
-	public Theme(String nom, Types id_type) {
-		this.id_type=id_type;
-		this.nom=nom;
+
+	@OneToMany(mappedBy = "theme", cascade = CascadeType.PERSIST, orphanRemoval = true)
+	private Set<Liste> listes = new HashSet<Liste>(0);
+	
+	public Set<Liste> getListes() {
+		return listes;
 	}
 
-	@Id
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="increment", strategy = "increment")
+	public void setListes(Set<Liste> listes) {
+		this.listes = listes;
+	}
+
 	public int getId_theme() {
 		return id_theme;
 	}
@@ -41,7 +50,7 @@ public class Theme {
 		this.id_theme = id_theme;
 	}
 	
-	@Column(name = "nom",length=50)
+	
 	public String getNom() {
 		return nom;
 	}
@@ -50,15 +59,15 @@ public class Theme {
 		this.nom = nom;
 	}
 	
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	public Types getId_type() {
-		return id_type;
+	public Types getType() {
+		return type;
 	}
 
-	public void setId_type(Types id_type) {
-		this.id_type = id_type;
+	public void setType(Types type) {
+		this.type = type;
 	}
+	
+
 	
 	
 }
