@@ -28,7 +28,10 @@ public class HibernateUtil {
 		}
 	}
 	
-	
+	public static void restartSession() {
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+	}
 	public static SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}

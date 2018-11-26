@@ -1,7 +1,5 @@
 package com.seb.daoHibernate;
 
-import javax.persistence.EntityManager;
-
 import org.hibernate.Session;
 
 import com.seb.dao.ThemeDAO;
@@ -13,12 +11,8 @@ public class ThemeHibernateDAO implements ThemeDAO {
 	public Theme getThemeById(int ThemeId) {
 		
 		Session session = HibernateUtil.getSession();
-		EntityManager entityManager = HibernateUtil.getEntityManager();
-		session.getTransaction();
-		
-		Theme themeById = entityManager.find(Theme.class, ThemeId);
-	
-		return themeById;
+
+		return session.find(Theme.class, ThemeId);
 		
 		
 	}
@@ -26,11 +20,25 @@ public class ThemeHibernateDAO implements ThemeDAO {
 	public void deleteTheme(Theme theme) {
 		
 		Session session = HibernateUtil.getSession();
-		session.getTransaction();
 		
-		session.save(theme);
+		theme.getType().getThemes().remove(theme);
 		
 		session.delete(theme);
-		session.flush();
+		
+		session.getTransaction().commit();
+		HibernateUtil.restartSession();
+		
 	}
+	
+	public void addTheme(Theme theme) {
+		
+		Session session = HibernateUtil.getSession();
+		
+		session.saveOrUpdate(theme);
+		
+		session.getTransaction().commit();
+		HibernateUtil.restartSession();
+		
+	}
+	
 }

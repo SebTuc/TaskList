@@ -31,7 +31,7 @@ public class Theme {
 	
 	
 
-	@OneToMany(mappedBy = "theme", cascade = CascadeType.PERSIST, orphanRemoval = true)
+	@OneToMany(mappedBy = "theme", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Liste> listes = new HashSet<Liste>(0);
 	
 	public Set<Liste> getListes() {

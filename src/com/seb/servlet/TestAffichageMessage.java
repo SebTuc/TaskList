@@ -9,21 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.seb.model.Types;
+import com.seb.service.ListeService;
 import com.seb.service.ThemeService;
 import com.seb.service.TypesService;
 
 
 public class TestAffichageMessage extends HttpServlet {
-<<<<<<< HEAD
-	private static final long serialVersionUID = 1L;   
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-=======
 	private static final long serialVersionUID = 1L;
 
->>>>>>> develop
     public TestAffichageMessage() {
         super();
     }
@@ -41,14 +34,41 @@ public class TestAffichageMessage extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idTheme = request.getParameter("deleteTheme");
 		String idList = request.getParameter("deleteList");
-		System.out.println(idList);
-		System.out.println(idTheme);
-		ThemeService themeService = new ThemeService();
+		String idButton = request.getParameter("buttonAdd");
+		String inputType = request.getParameter("type");
+		String inputTheme= request.getParameter("theme");
+		String inputList= request.getParameter("liste");
+		System.out.println(inputTheme);
+		System.out.println(idButton);
 		
+		ListeService ls = new ListeService();
+		ThemeService themeService = new ThemeService();
+		TypesService ts = new TypesService();
+		
+		if(idButton!=null) {
+			if(idButton.equals("add")) {
+				
+				ts.addTypes(inputType);
+				
+			}else if(inputTheme!=null) {
+				
+				themeService.addTheme(inputTheme, idButton);
+				
+			}else if(inputList!=null) {
+				
+				System.out.println("Do nothing for the moment....");
+				
+			}
+		}
 		
 		if(idTheme!=null) {
 			
 			themeService.deleteThemeById(idTheme);
+			
+		}
+		
+		if(idList!=null) {
+			
 			
 		}
 		

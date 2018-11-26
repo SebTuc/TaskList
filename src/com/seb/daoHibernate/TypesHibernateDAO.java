@@ -6,10 +6,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-<<<<<<< HEAD
-import org.hibernate.Criteria;
-=======
->>>>>>> develop
 import org.hibernate.Session;
 
 import com.seb.dao.TypesDAO;
@@ -25,8 +21,6 @@ public class TypesHibernateDAO implements TypesDAO {
 
 		CriteriaBuilder builder = HibernateUtil.getCriteriaBuilder();
 		
-		session.getTransaction();
-		
 		CriteriaQuery<Types> crit = builder.createQuery(Types.class);
 		
 		Root<Types> TypesRoot = crit.from(Types.class);
@@ -35,22 +29,6 @@ public class TypesHibernateDAO implements TypesDAO {
 		
 		List<Types> types = session.createQuery(crit).getResultList();
 		
-<<<<<<< HEAD
-		CriteriaBuilder builder = session.getCriteriaBuilder();
-		
-		CriteriaQuery<Types> crit = builder.createQuery(Types.class);
-		
-//		List<Types> types = crit.list();
-		
-		 Root<Types> typeRoot = crit.from(Types.class);
-
-		 crit.select(typeRoot);
-		 List<Types> types = session.createQuery(crit).getResultList();
-		 
-		session.close();
-		
-=======
->>>>>>> develop
 		if(types.isEmpty()) {
 			
 			return null;
@@ -58,6 +36,26 @@ public class TypesHibernateDAO implements TypesDAO {
 		}else {
 			return types;
 		}
+	}
+	
+	public Types getTypesById(int typesId) {
+		
+		Session session = HibernateUtil.getSession();
+
+		return session.find(Types.class, typesId);
+		
+		
+	}
+	
+	public void addTypes(Types types) {
+		
+		Session session = HibernateUtil.getSession();
+		
+		
+		session.saveOrUpdate(types);
+		session.getTransaction().commit();
+		HibernateUtil.restartSession();
+		
 	}
 
 }

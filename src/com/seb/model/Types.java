@@ -22,11 +22,9 @@ public class Types {
 	private int id_type;
 	private String nom;
 	
-	@OneToMany(mappedBy = "type", cascade = CascadeType.PERSIST, orphanRemoval = true)
+	@OneToMany(mappedBy = "type", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Theme> themes = new HashSet<Theme>(0);
 	
-<<<<<<< HEAD
-=======
 	public Set<Theme> getThemes() {
 		return themes;
 	}
@@ -35,7 +33,6 @@ public class Types {
 		this.themes = themes;
 	}
 
->>>>>>> develop
 	public int getId_type() {
 		return id_type;
 	}
