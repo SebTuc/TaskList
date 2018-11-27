@@ -14,41 +14,41 @@ import com.seb.service.ThemeService;
 import com.seb.service.TypesService;
 
 
-public class TestAffichageMessage extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+public class Test extends HttpServlet {
 
-    public TestAffichageMessage() {
-        super();
-    }
+	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		TypesService typesService = new TypesService();
+		
 		List<Types> allTypes = typesService.getAllType();
 
 		request.setAttribute("allTypes", allTypes);	
 		
-		this.getServletContext().getRequestDispatcher("/ressource/jsp/Test.jsp").forward(request, response);
+		request.getRequestDispatcher("/jsp/application/test.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String idTheme = request.getParameter("deleteTheme");
 		String idList = request.getParameter("deleteList");
 		String idButton = request.getParameter("buttonAdd");
-		String inputType = request.getParameter("type");
-		String inputTheme= request.getParameter("theme");
-		String inputList= request.getParameter("liste");
+		String inputType = request.getParameter("types");
+		String inputTheme= request.getParameter("themes");
+		String inputList= request.getParameter("listes");
+		
 		System.out.println(inputTheme);
 		System.out.println(idButton);
 		
-		ListeService ls = new ListeService();
 		ThemeService themeService = new ThemeService();
-		TypesService ts = new TypesService();
+		TypesService typeService = new TypesService();
 		
 		if(idButton!=null) {
+			
 			if(idButton.equals("add")) {
 				
-				ts.addTypes(inputType);
+				typeService.addTypes(inputType);
 				
 			}else if(inputTheme!=null) {
 				
@@ -74,5 +74,4 @@ public class TestAffichageMessage extends HttpServlet {
 		
 		doGet(request, response);
 	}
-
 }
