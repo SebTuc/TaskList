@@ -54,7 +54,7 @@
 													<input id="themes" name="themes" class="form-control" placeholder="Nouveau Theme"/>
 													
 													<div class="input-group-append">
-														<button name="buttonAdd" value="${List.id_type}" class="btn btn-success" type="submit">Ajouter</button>
+														<button name="buttonAddTheme" value="${List.id_type}" class="btn btn-success" type="submit">Ajouter</button>
 													</div>
 											
 												</div>
@@ -87,7 +87,7 @@
 													     	
 																<input id="listes" name="listes" class="form-control" placeholder="Nouveau Message"/>
 																<div class="input-group-append">
-																	<button name="buttonAdd" value="${Theme.id_theme}" class="btn btn-success" type="submit">Ajouter</button>
+																	<button name="buttonAddListe" value="${Theme.id_theme}" class="btn btn-success" type="submit">Ajouter</button>
 																</div>
 															
 															</div>

@@ -41,4 +41,19 @@ public class ThemeHibernateDAO implements ThemeDAO {
 		
 	}
 	
+	public Theme updateTheme(String newValueForName,Theme theme) {
+		
+		Session session = HibernateUtil.getSession();
+		
+		theme.setNom(newValueForName);
+		
+		session.update(theme);;
+		
+		session.getTransaction().commit();
+		HibernateUtil.restartSession();
+		
+		return theme;
+		
+	}
+	
 }

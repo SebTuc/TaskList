@@ -33,34 +33,51 @@ public class Test extends HttpServlet {
 		
 		String idTheme = request.getParameter("deleteTheme");
 		String idList = request.getParameter("deleteList");
-		String idButton = request.getParameter("buttonAdd");
+		String idButtonAdd = request.getParameter("buttonAdd");
+		String idButtonAddTheme = request.getParameter("buttonAddTheme");
+		String idButtonAddListe = request.getParameter("buttonAddListe");
+		String idThemeUpdate = request.getParameter("updateTheme");
 		String inputType = request.getParameter("types");
-		String inputTheme= request.getParameter("themes");
-		String inputList= request.getParameter("listes");
+		String Theme="";
+		String List="";
+		String[] inputList= request.getParameterValues("listes");
+		String[] inputTheme = request.getParameterValues("themes");
 		
-		System.out.println(inputTheme);
-		System.out.println(idButton);
-		
-		ThemeService themeService = new ThemeService();
-		TypesService typeService = new TypesService();
-		
-		if(idButton!=null) {
-			
-			if(idButton.equals("add")) {
-				
-				typeService.addTypes(inputType);
-				
-			}else if(inputTheme!=null) {
-				
-				themeService.addTheme(inputTheme, idButton);
-				
-			}else if(inputList!=null) {
-				
-				System.out.println("Do nothing for the moment....");
-				
+		//La on gere pas le fait d'inserer plusieur valeur et aucune vérification c'est juste des test
+		for(String s : inputTheme) {
+			if(!s.equals("")) {
+				Theme = s;
 			}
 		}
 		
+		for(String s : inputList) {
+			if(!s.equals("")) {
+				List = s;
+			}
+		}
+		
+		ThemeService themeService = new ThemeService();
+		ListeService ls = new ListeService();
+		TypesService typeService = new TypesService();
+		
+		
+		if(idButtonAdd!=null) {
+			typeService.addTypes(inputType);
+		}
+		if(idButtonAddTheme!=null) {
+			themeService.addTheme(Theme, idButtonAddTheme);
+		}
+		if(idButtonAddListe!=null) {
+			
+			ls.addListe(List, idButtonAddListe);
+			//System.out.println("Do nothing for the moment....");
+			
+		}
+		
+		if(idThemeUpdate!=null) {
+			themeService.updateTheme("Test!!", idThemeUpdate);
+		}
+			
 		if(idTheme!=null) {
 			
 			themeService.deleteThemeById(idTheme);

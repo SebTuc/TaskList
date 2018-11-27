@@ -27,4 +27,15 @@ public class ThemeService {
 		return theme;
 		
 	}
+	
+	public Theme updateTheme(String themeName, String id_type) {
+
+		
+		ThemeHibernateDAO themeDAO = new ThemeHibernateDAO();
+		
+		Theme theme = themeDAO.updateTheme(themeName,themeDAO.getThemeById(Integer.parseInt(id_type)));
+		
+		return theme;
+		
+	}
 }
